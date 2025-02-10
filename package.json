@@ -17,6 +17,7 @@
     "@prismicio/client": "^7.15.1",
     "@prismicio/next": "^2.0.0",
     "@prismicio/react": "^3.0.0",
+    "@tailwindcss/postcss": "^4.0.4",
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -27,10 +28,21 @@
     "@types/node": "^22.13.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.2",
     "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
+    "husky": "^4.3.8",
+    "postcss": "^8.5.1",
+    "prettier": "^3.5.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "slice-machine-ui": "^2.12.3",
+    "tailwindcss": "^4.0.4",
     "typescript": "^5.7.3"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   }
 }

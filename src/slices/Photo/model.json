@@ -1,0 +1,61 @@
+{
+  "id": "photo",
+  "type": "SharedSlice",
+  "name": "Photo",
+  "description": "Photo",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "photo": {
+          "type": "Image",
+          "config": {
+            "label": "Photo",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": ""
+          }
+        },
+        "category": {
+          "type": "Select",
+          "config": {
+            "label": "Category",
+            "placeholder": "",
+            "options": [
+              "Travel",
+              "Home",
+              "Foods",
+              "People",
+              "Animals"
+            ]
+          }
+        },
+        "date": {
+          "type": "Date",
+          "config": {
+            "label": "Date",
+            "placeholder": ""
+          }
+        },
+        "location": {
+          "type": "GeoPoint",
+          "config": {
+            "label": "Location"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
