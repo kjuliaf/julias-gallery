@@ -1,14 +1,21 @@
 import "./globals.css";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
-import { Inter } from "next/font/google";
+import { Mulish, Parisienne } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const inter = Inter({
+const mulish = Mulish({
 	subsets: ["latin"],
 	display: "swap",
-	variable: "--font-inter"
+	variable: "--font-mulish"
+});
+
+const parisienne = Parisienne({
+	weight: "400",
+	display: "swap",
+	subsets: ["latin"],
+	variable: "--font-parisienne"
 });
 
 export default function RootLayout({
@@ -17,8 +24,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={inter.variable}>
-			<body className="m-5 bg-[#191919] text-white lg:m-7">
+		<html lang="en" className={`${mulish.variable} ${parisienne.variable}`}>
+			<body className="bg-[#F3F1E5] text-[#222222]">
 				<Header />
 				<main>{children}</main>
 				<Footer />

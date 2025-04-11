@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const components = {
-	navigation_item: dynamic(() => import("./NavigationItem")),
-	photo: dynamic(() => import("./Photo"))
+  navigation_item: dynamic(() => import("./NavigationItem")),
+  page_photo: dynamic(() => import("./PagePhoto")),
+  photo: dynamic(() => import("./Photo")),
 };

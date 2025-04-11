@@ -49,9 +49,18 @@
           }
         },
         "location": {
-          "type": "GeoPoint",
+          "type": "Text",
           "config": {
-            "label": "Location"
+            "label": "Location",
+            "placeholder": ""
+          }
+        },
+        "categories": {
+          "type": "Group",
+          "config": {
+            "label": "Categories",
+            "repeat": true,
+            "fields": {}
           }
         }
       },

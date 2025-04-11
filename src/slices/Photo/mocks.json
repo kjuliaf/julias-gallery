@@ -42,11 +42,18 @@
 				"value": "2021-02-17"
 			},
 			"location": {
-				"__TYPE__": "GeoPointContent",
-				"position": {
-					"lat": 48.8606111,
-					"lng": 2.337644
-				}
+				"__TYPE__": "FieldContent",
+				"value": "practice",
+				"type": "Text"
+			},
+			"categories": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type CategoryPageDocumentDataSlicesSlice = never;
+type CategoryPageDocumentDataSlicesSlice = PagePhotoSlice;
 
 /**
  * Content for CategoryPage documents
@@ -127,7 +127,7 @@ export type NavigationDocument<Lang extends string = string> =
     Lang
   >;
 
-type PageDocumentDataSlicesSlice = never;
+type PageDocumentDataSlicesSlice = PagePhotoSlice;
 
 /**
  * Content for HomePage documents
@@ -285,6 +285,86 @@ export type NavigationItemSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *PagePhoto → Default → Primary*
+ */
+export interface PagePhotoSliceDefaultPrimary {
+  /**
+   * Image1 field in *PagePhoto → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page_photo.default.primary.image1
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image1: prismic.ImageField<never>;
+
+  /**
+   * Image2 field in *PagePhoto → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page_photo.default.primary.image2
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image2: prismic.ImageField<never>;
+
+  /**
+   * Category field in *PagePhoto → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page_photo.default.primary.category
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  category: prismic.RichTextField;
+
+  /**
+   * Description field in *PagePhoto → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page_photo.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Default variation for PagePhoto Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PagePhotoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PagePhotoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PagePhoto*
+ */
+type PagePhotoSliceVariation = PagePhotoSliceDefault;
+
+/**
+ * PagePhoto Shared Slice
+ *
+ * - **API ID**: `page_photo`
+ * - **Description**: PagePhoto
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PagePhotoSlice = prismic.SharedSlice<
+  "page_photo",
+  PagePhotoSliceVariation
+>;
+
+/**
+ * Item in *Photo → Default → Primary → Categories*
+ */
+export interface PhotoSliceDefaultPrimaryCategoriesItem {}
+
+/**
  * Primary content in *Photo → Default → Primary*
  */
 export interface PhotoSliceDefaultPrimary {
@@ -333,12 +413,24 @@ export interface PhotoSliceDefaultPrimary {
   /**
    * Location field in *Photo → Default → Primary*
    *
-   * - **Field Type**: GeoPoint
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: photo.default.primary.location
-   * - **Documentation**: https://prismic.io/docs/field#geopoint
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  location: prismic.GeoPointField;
+  location: prismic.KeyTextField;
+
+  /**
+   * Categories field in *Photo → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo.default.primary.categories[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  categories: prismic.GroupField<
+    Simplify<PhotoSliceDefaultPrimaryCategoriesItem>
+  >;
 }
 
 /**
@@ -406,7 +498,12 @@ declare module "@prismicio/client" {
       NavigationItemSliceDefaultPrimary,
       NavigationItemSliceVariation,
       NavigationItemSliceDefault,
+      PagePhotoSlice,
+      PagePhotoSliceDefaultPrimary,
+      PagePhotoSliceVariation,
+      PagePhotoSliceDefault,
       PhotoSlice,
+      PhotoSliceDefaultPrimaryCategoriesItem,
       PhotoSliceDefaultPrimary,
       PhotoSliceVariation,
       PhotoSliceDefault,
