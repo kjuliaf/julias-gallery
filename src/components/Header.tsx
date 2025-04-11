@@ -67,29 +67,35 @@ export default function Header() {
 
 				{/* Mobile */}
 				<div className="md:hidden">
-					{/* Hamburger menu icon */}
-					<div
+					{/* Hamburger menu open icon */}
+					<button
 						className="flex cursor-pointer flex-col items-end gap-2 p-5"
 						onClick={() => setShowHamburgerMenu(true)}
-					>
+						aria-label="Open navigation menu"
+						aria-expanded={showHamburgerMenu ? "true" : "false"}>
 						<span className="block h-0.75 w-10 rounded bg-[#222222]"></span>
 						<span className="block h-0.75 w-8 items-end rounded bg-[#222222]"></span>
-					</div>
+					</button>
 
 					{/* Hamburger menu */}
 					<div
-						className={`${showHamburgerMenu ? "" : "hidden"} absolute top-0 right-0 h-full w-full bg-[#F3F1E5]`}
-					>
-						<div
-							className="flex cursor-pointer flex-col items-end gap-2 p-5 pt-12"
-							onClick={() => setShowHamburgerMenu(false)}
-						>
-							<span className="absolute block h-0.75 w-10 rotate-45 rounded bg-[#222222]"></span>
-							<span className="absolute block h-0.75 w-10 rotate-135 rounded bg-[#222222]"></span>
+						className={`${showHamburgerMenu ? "" : "hidden"} absolute top-0 right-0 h-full w-full bg-[#F3F1E5]`}>
+						<div className="relative flex flex-col items-end">
+							{/* Hamburger menu close icon */}
+							<button
+								className="relative mt-2 flex cursor-pointer flex-col items-end p-5 pt-10"
+								onClick={() => setShowHamburgerMenu(false)}
+								aria-label="Close navigation menu"
+								type="button">
+								<div className="relative h-5 w-10">
+									<span className="absolute block h-0.75 w-10 rotate-45 rounded bg-[#222222]"></span>
+									<span className="absolute block h-0.75 w-10 -rotate-45 rounded bg-[#222222]"></span>
+								</div>
+							</button>
 						</div>
+
 						<ul
-							className={`${showHamburgerMenu ? "" : "hidden"} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center text-xl`}
-						>
+							className={`${showHamburgerMenu ? "" : "hidden"} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center text-xl`}>
 							{navigation?.data.slices.map((slice) => (
 								// Gets navigation items
 								<li key={slice.id}>

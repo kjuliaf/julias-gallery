@@ -71,9 +71,17 @@ export default function PhotoGrid(props: { category: string | null }) {
 						{/* Display image */}
 						<PrismicNextImage
 							field={slice.primary.photo}
+							role="button"
+							tabIndex={0}
 							onMouseOver={() => setHoveredImageId(slice.id)}
 							onMouseOut={() => setHoveredImageId(null)}
 							onMouseDown={() => setClickedImage(slice)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter" || e.key === " ") {
+									e.preventDefault();
+									setClickedImage(slice);
+								}
+							}}
 							className={`cursor-pointer transition-opacity duration-50 ${hoveredImageId === slice.id ? "opacity-70" : "opacity-100"} bg-[#CFCDC3]`}
 						/>
 					</div>
@@ -88,6 +96,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 			) : (
 				""
 			)}
+
 			{/* Dialog for showing more image information */}
 			{clickedImage !== null ? (
 				<dialog
@@ -97,6 +106,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 					<div
 						className="relative flex max-w-xl flex-col bg-white p-6 shadow-lg"
 						onClick={(e) => e.stopPropagation()}>
+						{/* Close button */}
 						<div className="self-end">
 							<button onClick={closeDialog} className="relative h-10 w-10 cursor-pointer">
 								<span className="absolute top-1/2 left-1/2 block h-0.75 w-10 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded bg-[#222222]"></span>
@@ -104,6 +114,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 							</button>
 						</div>
 
+						{/* Display image */}
 						<PrismicNextImage key={clickedImage.id} field={clickedImage.primary.photo} />
 					</div>
 				</dialog>
