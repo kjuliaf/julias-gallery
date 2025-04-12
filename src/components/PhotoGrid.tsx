@@ -5,8 +5,9 @@ import { PrismicNextImage } from "@prismicio/next";
 import { useEffect, useRef, useState } from "react";
 import { PhotoGridDocument, PhotoSlice } from "../../prismicio-types";
 import useMasonry from "@/utils/useMasonry";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import Loading from "./Loading";
+import CustomCursor from "@/utils/CustomCursor";
 
 export default function PhotoGrid(props: { category: string | null }) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -17,6 +18,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 	const [clickedImage, setClickedImage] = useState<PhotoSlice | null>(null);
 	const [showAll, setShowAll] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [isHovered, setIsHovered] = useState(false);
 
 	const filteredPhotoGrid = photoGrid?.data.slices
 		.filter((slice) => props.category === null || slice.primary.category === props.category)
@@ -36,11 +38,23 @@ export default function PhotoGrid(props: { category: string | null }) {
 			} finally {
 				setTimeout(() => {
 					setLoading(false);
-				}, 2000);
+				}, 1400);
 			}
 		}
 		fetchData();
 	}, []);
+
+	useEffect(() => {
+		if (loading) {
+			// Disable page scroll
+			document.body.style.overflow = "hidden";
+			document.documentElement.style.overflow = "hidden";
+		} else {
+			// Re-enable page scroll
+			document.body.style.overflow = "auto";
+			document.documentElement.style.overflow = "auto";
+		}
+	}, [loading]);
 
 	// Open dialog when clicking on an image
 	useEffect(() => {
@@ -72,11 +86,12 @@ export default function PhotoGrid(props: { category: string | null }) {
 						initial={{ opacity: 1 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						transition={{ duration: 0.3 }}>
+						transition={{ duration: 0.5 }}>
 						<Loading />
 					</motion.div>
 				)}
 				<div className="flex flex-col border-b-1 p-5 pt-3 pb-10 md:p-6 md:pt-4 md:pb-12 lg:p-7 lg:pt-5 lg:pb-14">
+					<CustomCursor isHovered={isHovered} />
 					<div
 						ref={masonryContainer}
 						className="grid grid-cols-2 items-start gap-5 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-7 xl:grid-cols-5">
@@ -84,12 +99,20 @@ export default function PhotoGrid(props: { category: string | null }) {
 							<div key={slice.id} className="pt-5 md:pt-7 lg:pt-9">
 								<motion.div
 									key={slice.id}
-									initial={{ opacity: 0 }}
-									animate={{ opacity: loading ? 0 : 1 }}
+									initial={{ opacity: 0, scale: 0.5 }}
+									animate={{
+										opacity: loading ? 0 : 1,
+										scale: loading ? 0.5 : 1
+									}}
+									whileHover={{ scale: 1.05 }}
+									onHoverStart={() => setIsHovered(true)}
+									onHoverEnd={() => setIsHovered(false)}
 									transition={{
-										duration: 0.4,
+										duration: 0.3,
+										scale: { type: "spring" },
 										delay: index * 0.1
-									}}>
+									}}
+									className="cursor-none">
 									{/* Image "index / location" */}
 									<p className="text-xs font-bold uppercase">
 										{index < 10 ? `0${index}` : index} / {slice.primary.location?.toString()}
@@ -109,7 +132,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 												setClickedImage(slice);
 											}
 										}}
-										className={`cursor-pointer transition-opacity duration-150 ${hoveredImageId === slice.id ? "opacity-70" : "opacity-100"} bg-[#CFCDC3]`}
+										className={`transition-opacity duration-150 ${hoveredImageId === slice.id ? "opacity-70" : "opacity-100"} bg-[#CFCDC3]`}
 									/>
 								</motion.div>
 							</div>
