@@ -59,7 +59,7 @@ export default function Header() {
 								field={slice.primary.link}
 								onMouseOver={() => setHoveredNavigationId(slice.id)}
 								onMouseOut={() => setHoveredNavigationId(null)}
-								className={`block h-full w-full cursor-pointer pb-1.5 transition-opacity duration-50 ${hoveredNavigationId === slice.id ? "opacity-100" : "opacity-50"} ${hoveredNavigationId === null ? "opacity-100" : null}`}
+								className={`block h-full w-full cursor-pointer pb-1.5 transition-opacity duration-150 ${hoveredNavigationId === slice.id ? "opacity-100" : "opacity-50"} ${hoveredNavigationId === null ? "opacity-100" : null}`}
 							/>
 						</li>
 					))}

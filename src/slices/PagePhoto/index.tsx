@@ -18,7 +18,7 @@ const PagePhoto: FC<PagePhotoProps> = ({ slice }) => {
 		<section data-slice-type={slice.slice_type} data-slice-variation={slice.variation}>
 			<div className="flex flex-col items-center justify-end border-b-1 p-10 sm:flex-row sm:justify-around md:p-13 md:px-15 lg:p-17 lg:px-22">
 				{/* Category images */}
-				<div className="grid grid-cols-2 grid-rows-2 place-self-start">
+				<div className="grid grid-cols-2 grid-rows-2 place-self-start sm:mb-[-50]">
 					<PrismicNextImage
 						field={slice.primary.image1}
 						className="aspect-square w-30 object-cover md:w-40 lg:w-55"
