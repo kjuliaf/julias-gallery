@@ -1,46 +1,42 @@
 "use client";
 
-import { createClient } from "@/prismicio";
 import { PrismicNextImage } from "@prismicio/next";
 import { useEffect, useRef, useState } from "react";
-import { PhotoGridDocument, PhotoSlice } from "../../prismicio-types";
+import { PhotoSlice } from "../../prismicio-types";
 import useMasonry from "@/utils/useMasonry";
 import { motion, AnimatePresence } from "motion/react";
 import Loading from "./Loading";
+import { usePhotoGridStore } from "@/utils/usePhotoGridStore";
 
 export default function PhotoGrid(props: { category: string | null }) {
+	const { photoGrid, loading, fetchPhotoGrid } = usePhotoGridStore();
 	const dialogRef = useRef<HTMLDialogElement>(null);
-
-	const [photoGrid, setPhotoGrid] = useState<PhotoGridDocument<string>>();
 	const masonryContainer = useMasonry();
 	const [hoveredImageId, setHoveredImageId] = useState<string | null>(null);
 	const [clickedImage, setClickedImage] = useState<PhotoSlice | null>(null);
 	const [showAll, setShowAll] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(true);
-
-	const filteredPhotoGrid = photoGrid?.data.slices
-		.filter((slice) => props.category === null || slice.primary.category === props.category)
-		.filter((_, index) => showAll || index < 9);
-
+	const [filteredPhotoGrid, setFilteredPhotoGrid] = useState<PhotoSlice[] | null>(null);
 	const numberOfImages = filteredPhotoGrid?.length ?? 0;
 
 	// Get photo grid data
 	useEffect(() => {
-		async function fetchData() {
-			try {
-				const client = createClient();
-				const response = await client.getByUID("photo_grid", "photo_grid");
-				setPhotoGrid(response);
-			} catch (err) {
-				console.error("Could not load images:", err);
-			} finally {
-				setTimeout(() => {
-					setLoading(false);
-				}, 800);
-			}
+		if (!photoGrid) {
+			setTimeout(() => {
+				fetchPhotoGrid();
+			}, 800);
 		}
-		fetchData();
-	}, []);
+	}, [photoGrid, fetchPhotoGrid]);
+
+	// Filter photo grid
+	useEffect(() => {
+		if (photoGrid) {
+			const filtered = photoGrid.data.slices
+				.filter((slice) => props.category === null || slice.primary.category === props.category)
+				.filter((_, index) => showAll || index < 9);
+
+			setFilteredPhotoGrid(filtered);
+		}
+	}, [photoGrid, props.category, showAll]);
 
 	useEffect(() => {
 		if (loading) {
@@ -104,7 +100,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 									transition={{
 										duration: 0.8,
 										ease: "easeInOut",
-										scale: { type: "spring", duration: 0.6 },
+										scale: { type: "spring", duration: 0.6 }
 									}}
 									className="will-change-transform">
 										
