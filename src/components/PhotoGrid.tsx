@@ -96,17 +96,15 @@ export default function PhotoGrid(props: { category: string | null }) {
 							<div key={slice.id} className="pt-5 md:pt-7 lg:pt-9">
 								<motion.div
 									key={slice.id}
-									initial={{ opacity: 0, scale: 0.8 }}
+									initial={{ opacity: 0 }}
 									animate={{
-										opacity: loading ? 0 : 1,
-										scale: loading ? 0.8 : 1
+										opacity: loading ? 0 : 1
 									}}
-									whileHover={{ scale: 1.05 }}
+									whileHover={{ scale: 1.04 }}
 									transition={{
-										duration: 1,
+										duration: 0.8,
 										ease: "easeInOut",
-										scale: { type: "spring" },
-										delay: index * 0.2
+										scale: { type: "spring", duration: 0.6 },
 									}}
 									className="will-change-transform">
 										

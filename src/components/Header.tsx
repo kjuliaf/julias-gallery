@@ -79,7 +79,7 @@ export default function Header() {
 
 					{/* Hamburger menu */}
 					<div
-						className={`${showHamburgerMenu ? "" : "hidden"} absolute top-0 right-0 h-full w-full bg-[#F3F1E5]`}>
+						className={`${showHamburgerMenu ? "" : "hidden"} absolute top-0 right-0 z-10 h-full w-full bg-[#F3F1E5]`}>
 						<div className="relative flex flex-col items-end">
 							{/* Hamburger menu close icon */}
 							<button
