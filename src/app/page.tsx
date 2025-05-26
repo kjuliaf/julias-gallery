@@ -5,7 +5,7 @@ import { SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import PhotoGrid from "@/components/PhotoGrid";
+import PhotoGrid from "@/components/PhotoGrid/PhotoGrid";
 
 export default async function Home() {
 	const client = createClient();

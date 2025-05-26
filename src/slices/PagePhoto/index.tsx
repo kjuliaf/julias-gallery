@@ -5,6 +5,8 @@ import arrow from "./resources/arrow.svg";
 import Image from "next/image";
 import { PrismicNextImage } from "@prismicio/next";
 
+// TODO : Don't show content if images are not loaded
+
 /**
  * Props for `PagePhoto`.
  */
