@@ -48,9 +48,12 @@ const useMasonry = () => {
       });
     };
 
+    const timeout = setTimeout(handleMasonry, 100)
+
     handleMasonry();
     window.addEventListener("resize", handleMasonry);
     return () => {
+      clearTimeout(timeout)
       window.removeEventListener("resize", handleMasonry);
     };
   }, [items]);
