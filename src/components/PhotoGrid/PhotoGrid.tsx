@@ -37,7 +37,7 @@ export default function PhotoGrid(props: { category: string | null }) {
 		if (photoGrid) {
 			const filtered = photoGrid.data.slices
 				.filter((slice) => props.category === null || slice.primary.category === props.category)
-				.filter((_, index) => showAll || index < 9);
+				.filter((_, index) => showAll || index < 15);
 
 			setFilteredPhotoGrid(filtered);
 		}

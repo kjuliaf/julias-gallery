@@ -26,7 +26,7 @@ export default function MasonryLayout({
 }: MasonryLayoutProps) {
 	// Component implementation
 
-	const masonryContainer = useMasonry();
+	const masonryContainer = useMasonry(filteredPhotoGrid);
 
 	return (
 		<div className="flex flex-col">
@@ -73,7 +73,7 @@ export default function MasonryLayout({
 					</div>
 				))}
 			</div>
-			{!showAll && numberOfImages > 8 ? (
+			{!showAll && numberOfImages > 14 ? (
 				/* Show all images button if not all are displayed */
 				<button className="mt-4 cursor-pointer font-bold underline" onClick={() => setShowAll(true)}>
 					Show all

@@ -33,9 +33,9 @@
             "label": "Category",
             "placeholder": "",
             "options": [
-              "Travel",
+              "Nature",
+              "City",
               "Home",
-              "Foods",
               "People",
               "Animals"
             ]

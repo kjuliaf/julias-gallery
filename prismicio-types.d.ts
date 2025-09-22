@@ -31,7 +31,7 @@ interface CategoryPageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#select
    */
   category: prismic.SelectField<
-    "Travel" | "Home" | "Foods" | "People" | "Animals"
+    "Nature" | "City" | "Home" | "People" | "Animals"
   >;
 
   /**
@@ -397,7 +397,7 @@ export interface PhotoSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#select
    */
   category: prismic.SelectField<
-    "Travel" | "Home" | "Foods" | "People" | "Animals"
+    "Nature" | "City" | "Home" | "People" | "Animals"
   >;
 
   /**
