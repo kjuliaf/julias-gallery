@@ -2,6 +2,7 @@ import useMasonry from "@/utils/useMasonry";
 import { PhotoSlice } from "../../../prismicio-types";
 import { motion } from "motion/react";
 import { PrismicNextImage } from "@prismicio/next";
+import { useEffect, useState } from "react";
 
 interface MasonryLayoutProps {
 	filteredPhotoGrid: PhotoSlice[] | null;
@@ -26,8 +27,15 @@ export default function MasonryLayout({
 }: MasonryLayoutProps) {
 	// Component implementation
 
-	const masonryContainer = useMasonry(filteredPhotoGrid);
+	const [imagesLoaded, setImagesLoaded] = useState(0);
+	const masonryContainer = useMasonry(imagesLoaded);
 
+	useEffect(() => {
+		if (filteredPhotoGrid) {
+			setImagesLoaded(0);
+		}
+	}, [filteredPhotoGrid]);
+	
 	return (
 		<div className="flex flex-col">
 			<div
@@ -56,6 +64,7 @@ export default function MasonryLayout({
 							{/* Display image */}
 							<PrismicNextImage
 								field={slice.primary.photo}
+								onLoad={() => setImagesLoaded((count) => count + 1)}
 								role="button"
 								tabIndex={0}
 								onMouseOver={() => setHoveredImageId(slice.id)}

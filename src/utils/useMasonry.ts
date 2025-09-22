@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { PhotoSlice } from "../../prismicio-types";
 
-const useMasonry = (photoGrid?: PhotoSlice[] | null) => {
+const useMasonry = (dependency?: number) => {
   const masonryContainer = useRef<HTMLDivElement | null>(null);
   const [items, setItems] = useState<ChildNode[]>([]);
 
@@ -57,7 +56,7 @@ const useMasonry = (photoGrid?: PhotoSlice[] | null) => {
       clearTimeout(timeout)
       window.removeEventListener("resize", handleMasonry);
     };
-  }, [items, photoGrid]);
+  }, [items, dependency]);
 
   const elementLeft = (el: HTMLElement) => {
     return el.getBoundingClientRect().left;
